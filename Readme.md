@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Lidiya Saulite](https://up.htmlacademy.ru/javascript/12/user/293549).
-* Наставник: `Неизвестно`.
+* Наставник: Дмитрий Лялин.
 
 ---
 
