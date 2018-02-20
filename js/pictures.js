@@ -1,8 +1,9 @@
-// объявляю переменные 
+// объявляю константы 
 var LIKES_MIN = 15;
 var LIKES_MAX = 250;
+var PICTURES_QUANTITY = 25;
 
-//объявляю массив 
+//объявляю массив, чтобы потом генерировать в него созданые объекты
 var arrPicture = [];
 
 //функция, генерирующая случайные числа из заданного диапазона
@@ -10,8 +11,7 @@ var getRandomNumberFromRange = function (min, max) {
   var randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
   return randomNumber;
 }
-  
-//массив строк
+  //объявляю массив строк для генерации рандомных комментариев 
 var mockComments = [
   'Всё отлично!', 'В целом всё неплохо. Но не всё.', 
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -22,9 +22,9 @@ var mockComments = [
 
 var mockCommentsLength = mockComments.length;
 
-
 var getArrayWithComments = function() {
-  var randomCommentsNumber = getRandomNumberFromRange(1, 2);
+
+  var randomCommentsNumber = getRandomNumberFromRange(1, 2); //Для комментария нужно взять одно или два случайных предложений из предложенных ниже//
   var randomComments = [];
   for (var i = 1; i <= randomCommentsNumber; i++) {
   	var randomCommentIndex = getRandomNumberFromRange(0, mockCommentsLength - 1);
@@ -33,9 +33,8 @@ var getArrayWithComments = function() {
   }
   return randomComments;
 }
-
 // добавляем объекты в массив
-for (var i = 1; i <= 25; i++) {
+for (var i = 1; i <= PICTURES_QUANTITY; i++){
 	var randomLikesNumber = getRandomNumberFromRange(LIKES_MIN, LIKES_MAX);
 	var randomComments = getArrayWithComments();
 	var photoObject = {
@@ -46,32 +45,37 @@ for (var i = 1; i <= 25; i++) {
   arrPicture.push(photoObject); 
 }
 
-console.log(arrPicture);
-
-
-//функция, клонируем элементы 
 var picturesContainer = document.querySelector('.pictures');
-var picturesGallery = document.querySelector('.gallery-overlay');
+//показываем элемент на сайте//
+var galleryElement = document.querySelector('.gallery-overlay');
+galleryElement.classList.remove('hidden');
 var imageLinkTemplate = document.querySelector('#picture-template').content;
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < arrPicture.length; i++) {
+//функция, клонируем элементы 
+var getPictureElements = function(){
   var imageLinkElement = imageLinkTemplate.cloneNode(true);
   var imgElement = imageLinkElement.querySelector('img');
   imgElement.setAttribute('src', arrPicture[i].url);
   var likeElement = imageLinkElement.querySelector('.picture-likes');
-  likeElement.setAttribute('span', arrPicture[i].likes);
+  likeElement.textContent = arrPicture[i].likes;
   var commentElement = imageLinkElement.querySelector('.picture-comments');
-  commentElement.setAttribute('span', arrPicture[i].comments);
-  fragment.appendChild(imageLinkElement);
-
-  }
-
+  commentElement.textContent = arrPicture[i].comments.length;
+  var imageGalleryElem = imageLinkElement.querySelector('img');
+  imageGalleryElem.textContent = arrPicture[i].url;
+  return imageLinkElement
+}
+var fragment = document.createDocumentFragment();
+for (var i = 0; i < arrPicture.length; i++) {
+  var pictureObj = arrPicture[i];
+  fragment.appendChild(getPictureElements(pictureObj));
+}
 picturesContainer.appendChild(fragment);
 
+  
+          
 
-//показываем элемент на сайте
-var showElement = document.querySelector('.gallery-overlay');
-showElement.classList.remove('hidden');
+
+
+
 
 
 
