@@ -79,17 +79,5 @@ var galleryPictureParts = {
 setPictureInfoFromMockData(galleryPictureParts, firstDataElement);
 //показываем элемент на сайте
 
-var pictureClickHeandler = function(){
-  galleryElement.classList.remove('hidden');
-};
-  
-galleryElement.addEventListener('click', pictureClickHeandler);
-console.log(pictureClickHeandler);
+galleryElement.classList.remove('hidden');
 
-var formElementUpload = document.querySelector('#upload-form');
-var formOverlay = document.querySelector('.upload-overlay');
-var formChangeHeandler = function(){
-  formOverlay.classList.remove('hidden');
-};
-
-formElementUpload.addEventListener('click', formChangeHeandler());
