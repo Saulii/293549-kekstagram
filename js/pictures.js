@@ -10,7 +10,7 @@ var arrPicture = [];
 var getRandomNumberFromRange = function(min, max) {
   var randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
   return randomNumber;
-}
+};
 //объявляю массив строк для генерации рандомных комментариев 
 var mockComments = [
   'Всё отлично!', 'В целом всё неплохо. Но не всё.',
@@ -21,7 +21,6 @@ var mockComments = [
 ];
 
 var mockCommentsLength = mockComments.length;
-
 var getArrayWithComments = function() {
 
   var randomCommentsNumber = getRandomNumberFromRange(1, 2); //Для комментария нужно взять одно или два случайных предложений из предложенных ниже//
@@ -32,7 +31,7 @@ var getArrayWithComments = function() {
     randomComments.push(randomComment);
   }
   return randomComments;
-}
+};
 // добавляем объекты в массив
 for (var i = 1; i <= PICTURES_QUANTITY; i++) {
   var randomLikesNumber = getRandomNumberFromRange(LIKES_MIN, LIKES_MAX);
@@ -55,7 +54,7 @@ var setPictureInfoFromMockData = function(pictureParts, mockData) {
   imgElement.setAttribute('src', mockData.url);
   likeElement.textContent = mockData.likes;
   commentElement.textContent = mockData.comments.length;
-}
+};
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < arrPicture.length; i++) {
   var imageLinkElement = imageLinkTemplate.cloneNode(true);
@@ -65,7 +64,7 @@ for (var i = 0; i < arrPicture.length; i++) {
     comment: imageLinkElement.querySelector('.picture-comments')
   };
   var pictureData = arrPicture[i];
-  setPictureInfoFromMockData(imagePictureParts, pictureData)
+  setPictureInfoFromMockData(imagePictureParts, pictureData);
   fragment.appendChild(imageLinkElement);
 }
 picturesContainer.appendChild(fragment);
@@ -80,10 +79,17 @@ var galleryPictureParts = {
 setPictureInfoFromMockData(galleryPictureParts, firstDataElement);
 //показываем элемент на сайте
 
-galleryElement.classList.remove('hidden');
+var pictureClickHeandler = function(){
+  galleryElement.classList.remove('hidden');
+};
   
+galleryElement.addEventListener('click', pictureClickHeandler);
+console.log(pictureClickHeandler);
 
+var formElementUpload = document.querySelector('#upload-form');
+var formOverlay = document.querySelector('.upload-overlay');
+var formChangeHeandler = function(){
+  formOverlay.classList.remove('hidden');
+};
 
-
-
-
+formElementUpload.addEventListener('click', formChangeHeandler());
